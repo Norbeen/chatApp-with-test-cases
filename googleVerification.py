@@ -2,14 +2,15 @@ from app import *
 global googleImage, googleName
 from google.oauth2 import id_token
 from google.auth.transport import requests
-from app import *
+import flask_socketio
 
 global googleImage 
 global googleName 
+app = flask.Flask(__name__)
+socketio = flask_socketio.SocketIO(app)
 
 #***********************  verification of the user signed in with the google *************
 @socketio.on('google token')
-
 def google_information(token):
     
     print ("Got an event for GOOGLE TOKEN ID: "+ str(token))
@@ -27,7 +28,9 @@ def google_information(token):
         
         # In order to insert on database and send it to client later + making global variable
        
-        googleImage = idinfo['picture']
+        
+        googleImage= idinfo['picture']
+        
         googleName = idinfo['name']
         
         

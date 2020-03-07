@@ -6,6 +6,20 @@ import { Socket } from './Socket';
 
 /*global gapi*/
 
+const responseGoogle = (response) => {
+    console.log("Hey, I am from Button.js")
+    console.log("*************");
+    
+    let auth = gapi.auth2.getAuthInstance();
+    let user = auth.currentUser.get();
+    if (user.isSignedIn()) {
+        Socket.emit('google token', {
+            'user_token': user.getAuthResponse().id_token
+        });
+    }
+}
+
+
 export class GoogleSignin extends React.Component {
     constructor(props) {
         super(props);
@@ -21,7 +35,7 @@ export class GoogleSignin extends React.Component {
             
             <div>
       <GoogleLogin
-          clientId="641650714654-3nvhsfpcnhgiljvfrhj70f7idk3uv0gi.apps.googleusercontent.co"
+          clientId="431399280437-1sl5lk925j49op7h9j0f3a6tmj299ciq.apps.googleusercontent.com"
           buttonText="Login with Google"
           onSuccess={this.responseGoogle}
           onFailure={this.responseGoogle}

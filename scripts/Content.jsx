@@ -23,11 +23,9 @@ export class Content extends React.Component {
     render() {
         
         let display_message = this.state.messages;
+      
       return (
             <div>
-            
-            
-            
             
 <section className="msger">
   <header className="msger-header">
@@ -45,7 +43,7 @@ export class Content extends React.Component {
         <div className="msg-info">
           <div className="msg-info-name">BOT</div>
           <div className="msg-info-time">12:45</div>
-        </div>
+            </div>
 
        
                                 <ul>
@@ -78,3 +76,4 @@ export class Content extends React.Component {
         );
     }
 }
+

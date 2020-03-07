@@ -35,7 +35,7 @@ export class Button extends React.Component {
         
         this.handleChangeMessage = this.handleChangeMessage.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.canBeClicked = this.canBeClicked.bind(this);
+        this.sendButton = this.sendButton.bind(this);
     }
     
     handleSubmit(event){
