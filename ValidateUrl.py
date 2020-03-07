@@ -1,5 +1,5 @@
 from rfc3987 import parse
-from app import *
+
 
 def validateUrl(string):
     url_message = ""

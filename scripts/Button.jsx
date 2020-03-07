@@ -57,15 +57,9 @@ export class Button extends React.Component {
         console.log('user_message', event.target.value);
     }
     
-    sendButton() 
-    
-    {
-    if (this.state.user_message != null && UserSignedIn){
-      return true;  
-    }
-    else{
-        return false;
-    }
+    sendButton() {
+        const {user_message} = this.state;
+        return user_message.length > 0 && UserSignedIn;
     }
     
     render() {
@@ -76,7 +70,7 @@ export class Button extends React.Component {
         
         return (
             <div>
-                <form className = "enter-chat" onSubmit = {this.handleSubmit}>
+                <form className = "enter-chat" onSubmit = {send_message}>
                     <div>
                             <GoogleLogin
                                 clientId="431399280437-1sl5lk925j49op7h9j0f3a6tmj299ciq.apps.googleusercontent.com"
@@ -91,10 +85,10 @@ export class Button extends React.Component {
                 
                 <form className = "reply-area" onSubmit = {send_message}>
                     <div>
-                        <textarea className="type-box" cols="50" rows="2" placeholder = " Start your chat" value = {client_message} onChange = {receive_message}></textarea>
+                        <textarea className="type-box" cols="100" rows="5" placeholder = " Start your chat" value = {client_message} onChange = {receive_message}></textarea>
                     </div>
                     <div>
-                        <button enabled = {this.sendButton()}> Send </button>
+                        <button disabled = {!this.sendButton()}> Send </button>
                     </div>
                 </form>
             </div>
