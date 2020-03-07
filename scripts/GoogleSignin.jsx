@@ -1,7 +1,3 @@
-/* global UserActive */
-/* global gapi */
-/* global Socket */
-/* global UserSignedIn */
 
 import * as React from 'react';
 import { GoogleLogin } from 'react-google-login';

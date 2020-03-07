@@ -22,40 +22,40 @@ export class Content extends React.Component {
     
     render() {
         
-        let final_messages = this.state.messages;
+        let display_message = this.state.messages;
       return (
             <div>
             
             
             
             
-<section class="msger">
-  <header class="msger-header">
-    <div class="msger-header-title">
-      <i class="fas fa-comment-alt"></i> Nabin's Chatbot
+<section className="msger">
+  <header className="msger-header">
+    <div className="msger-header-title">
+      <i className="fas fa-comment-alt"></i> Nabin's Chatbot
     </div>
-    <div class="msger-header-options">
-      <span><i class="fas fa-cog"></i></span>
+    <div className="msger-header-options">
+      <span><i className="fas fa-cog"></i></span>
     </div>
   </header>
 
-  <main class="msger-chat">
-    <div class="m sg left-msg">
-      <div class="msg-bubble">
-        <div class="msg-info">
-          <div class="msg-info-name">BOT</div>
-          <div class="msg-info-time">12:45</div>
+  <main className="msger-chat">
+    <div className="m sg left-msg">
+      <div className="msg-bubble">
+        <div className="msg-info">
+          <div className="msg-info-name">BOT</div>
+          <div className="msg-info-time">12:45</div>
         </div>
 
        
                                 <ul>
                                     <li className = "msg-text">
-                                         <div class="msg-text">
+                                         <div className="msg-text">
                                          Hi, welcome to the chat, Go ahead and send me a message. 😄
                                         </div>
                                    
                                     </li>
-                                    { final_messages.map( name_message =>
+                                    { display_message.map( name_message =>
                                     <li key = {name_message[0].id} className = "message-with-image">
                                         <img src={name_message[3]} alt = "User Image" className = "user-image"></img>
                                         <div>
