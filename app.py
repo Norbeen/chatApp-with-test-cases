@@ -44,25 +44,17 @@ def google_information(token):
         if idinfo['iss'] not in ['accounts.google.com', 'https://accounts.google.com']:
             raise ValueError('Wrong issuer.')
             
-        # ID token is valid. Get the user's Google Account ID from the decoded token.
+        #**************** After verification getting the user id.     ************************
         userid = idinfo['sub']
         print(idinfo)
         
-        # In order to insert on database and send it to client later + making global variable
+        # ***************** Declaring global variable for name and image extracted from google ********
        
         global googleImage
         googleImage= idinfo['picture']
         
         global googleName
         googleName = idinfo['name']
-        
-        
-        
-        print("************")
-        print("Name: "+ idinfo['name'])
-        print("Imageurl: "+ idinfo['picture'])
-        print("Email: "+ idinfo['email'])
-        print("************")
     
     except ValueError:
         print("Invalid token")
@@ -77,6 +69,7 @@ def received_Message(data):
     print ("Got an event for new message with data: "+ str(data))
     # server_received_name = data['user_name']
     grabMessage = data['user_message']
+    print(grabmessage)
     
     
     # Checking response for the bot.
@@ -102,11 +95,13 @@ def received_Message(data):
         message = s.user_message
         image = s.user_image
         
-        # ********
+  #****************************** Validating if the message is URL or NO url ***********************
         url = validateUrl(message)[0]
         non_url = validateUrl(message)[1]
         # ********
-        
+  
+  #Appending the google name, url/url message and the image
+  
         # chat_list = [name, message, image]
         chat_list = [name, url, non_url, image]
         new_list.append(chat_list)
@@ -119,7 +114,7 @@ def received_Message(data):
   #****************************** This ends here ***************************************************  
   
   
-  #****************************** Validating if the message is URL or NO url ***********************
+
     
 
 

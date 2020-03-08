@@ -5,6 +5,7 @@ import { Socket } from './Socket';
 
 /* global gapi */
 
+// Declaring the active user to 0 and setting User signin status to be false
 
 let UserActive = 0;
 let UserSignedIn = false;
@@ -18,13 +19,14 @@ const responseGoogle = (response) => {
     if (user.isSignedIn()) {
         UserActive += 1
         UserSignedIn = true;
-        console.log("Is user signed in:",UserSignedIn)
-        console.log("google token:  " + user.getAuthResponse().id_token);
         Socket.emit('google token', {
             'user_token': user.getAuthResponse().id_token
         });
     }
 }
+
+
+// Appending the message( url/non url ), name and image from google to display in the browser
 
 export class Button extends React.Component {
     constructor(props) {
@@ -38,13 +40,15 @@ export class Button extends React.Component {
         this.sendButton = this.sendButton.bind(this);
     }
     
+    
+// This will emit the user typed message to the server in python code 
+
     handleSubmit(event){
         event.preventDefault();
-        //  *** user-message and user_name is sent from client to server ***
         Socket.emit('first_client_message', {
             'user_message': this.state.user_message
         });
-        // In order to clear the input field after sending the message.
+// In order to clear the input field after sending the message.
         this.setState({user_message: ''});
         
         console.log('Sent a message to server!',this);
@@ -57,20 +61,23 @@ export class Button extends React.Component {
         console.log('user_message', event.target.value);
     }
     
+// When true this is returned true, that enables the button 
+
     sendButton() {
         const {user_message} = this.state;
         return user_message.length > 0 && UserSignedIn;
     }
     
     render() {
-        
+
+// client message is the message to be displayed when rendered
+
         let client_message = this.state.message;
-        let send_message= this.handleSubmit;
-        let receive_message =this.handleChangeMessage;
+        let isEnabled = this.sendButton();
         
         return (
             <div>
-                <form className = "enter-chat" onSubmit = {send_message}>
+                <form className = "enter-chat" onSubmit = {this.handleSubmit}>
                     <div>
                             <GoogleLogin
                                 clientId="431399280437-1sl5lk925j49op7h9j0f3a6tmj299ciq.apps.googleusercontent.com"
@@ -83,12 +90,12 @@ export class Button extends React.Component {
                     </div>
                 </form>
                 
-                <form className = "reply-area" onSubmit = {send_message}>
+                <form className = "reply-area" onSubmit = {this.handleSubmit}>
                     <div>
-                        <textarea className="type-box" cols="100" rows="5" placeholder = " Start your chat" value = {client_message} onChange = {receive_message}></textarea>
+                        <textarea className="type-box" cols="100" rows="5" placeholder = " Start your chat" value = {client_message} onChange = {this.handleChangeMessage}></textarea>
                     </div>
                     <div>
-                        <button disabled = {!this.sendButton()}> Send </button>
+                        <button disabled = {!isEnabled}> Send </button>
                     </div>
                 </form>
             </div>
