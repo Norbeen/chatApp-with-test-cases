@@ -11,8 +11,6 @@ let UserActive = 0;
 let UserSignedIn = false;
 
 const responseGoogle = (response) => {
-    console.log("Hey, I am from Button.js")
-    console.log("*************");
     
     let auth = gapi.auth2.getAuthInstance();
     let user = auth.currentUser.get();
@@ -45,6 +43,7 @@ export class Button extends React.Component {
 
     handleSubmit(event){
         event.preventDefault();
+        
         Socket.emit('first_client_message', {
             'user_message': this.state.user_message
         });
@@ -72,7 +71,6 @@ export class Button extends React.Component {
 
 // client message is the message to be displayed when rendered
 
-        let client_message = this.state.message;
         let isEnabled = this.sendButton();
         
         return (
@@ -92,7 +90,7 @@ export class Button extends React.Component {
                 
                 <form className = "reply-area" onSubmit = {this.handleSubmit}>
                     <div>
-                        <textarea className="type-box" cols="100" rows="5" placeholder = " Start your chat" value = {client_message} onChange = {this.handleChangeMessage}></textarea>
+                        <textarea className="type-box" cols="100" rows="5" placeholder = " Start your chat" value = {this.state.message} onChange = {this.handleChangeMessage}></textarea>
                     </div>
                     <div>
                         <button disabled = {!isEnabled}> Send </button>
