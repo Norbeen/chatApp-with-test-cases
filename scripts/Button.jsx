@@ -49,10 +49,6 @@ export class Button extends React.Component {
         });
 // In order to clear the input field after sending the message.
         this.setState({user_message: ''});
-        
-        console.log('Sent a message to server!',this);
-        console.log('User Name:', this.state.user_name);
-        console.log('User Message:', this.state.user_message);
     }
     
     handleChangeMessage(event) {
