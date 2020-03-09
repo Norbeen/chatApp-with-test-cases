@@ -67,18 +67,17 @@ def google_information(token):
 def on_received_Message(data):
     print ("Got an event for new message with data: "+ str(data))
     # server_received_name = data['user_name']
-    grabbedMessage = data['user_message']
+    msg  = data['user_message']
   
     # Checking response for the bot.
-    if grabbedMessage[:2] == "!!":
+    if msg [:2] == "!!":
         
         global googleName
-        googleName = Bot(googleName, grabbedMessage)[0]
-        grabbedMessage= Bot(googleName, grabbedMessage)[1]
+        googleName = Bot(googleName, msg )[0]
+        msg = Bot(googleName, msg )[1]
         
 
-    msg = models.Message(googleName, grabbedMessage, googleImage)
-    models.db.session.add(msg)
+    msg = models.Message(googleName,msg,googleImage)
     models.db.session.commit()
     
     print("Record inserted successfully")
@@ -90,19 +89,19 @@ def on_received_Message(data):
     
     for i in database_messages:
         
-        name = i.name
-        message = i.message
-        image = i.image
+        nam = i.name
+        msg = i.message
+        img= i.image
         
-# #   #****************************** Validating if the message is URL or NO url ***********************
+# # #   #****************************** Validating if the message is URL or NO url ***********************
         url = validateUrl(message)[0]
         non_url = validateUrl(message)[1]
 #       ********
   
-# #   #Appending the google name, url/url message and the image
+# # #   #Appending the google name, url/url message and the image
   
-        chat_list = [name, message, image]
-        chat_list = [name, url, non_url, image]
+        chat_list = [nam, msg, img]
+        chat_list = [nam, url, non_url, img]
         new_list.append(chat_list)
     print("#####################################################################################")
     print("New List: ", display_list)
