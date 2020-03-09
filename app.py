@@ -7,7 +7,7 @@ from google.oauth2 import id_token
 from google.auth.transport import requests
 from ChatBot import *
 from ValidateUrl import validateUrl
-global received_name
+
 
 googleImage = ""
 googleName = ""
@@ -67,44 +67,51 @@ def google_information(token):
 def on_received_Message(data):
     print ("Got an event for new message with data: "+ str(data))
     # server_received_name = data['user_name']
-    msg  = data['user_message']
+    grabbedMessage  = data['user_message']
   
     # Checking response for the bot.
-    if msg [:2] == "!!":
+    if grabbedMessage [:2] == "!!":
         
         global googleName
-        googleName = Bot(googleName, msg )[0]
-        msg = Bot(googleName, msg )[1]
+        googleName = Bot(googleName, grabbedMessage )[0]
+        grabbedMessage = Bot(googleName, grabbedMessage )[1]
         
 
-    msg = models.Message(googleName,msg,googleImage)
+    message = models.chatMessage(googleName,grabbedMessage,googleImage)
+    models.db.session.add(message)
     models.db.session.commit()
     
     print("Record inserted successfully")
     
     # Retrieving the data from database
-    database_messages = models.Message.query.all()
+    database_messages = models.chatMessage.query.all()
     display_list = []
+    
     print("Stored Messages:", database_messages)
     
     for i in database_messages:
         
-        nam = i.name
-        msg = i.message
-        img= i.image
+        name = i.Uname
+        message = i.Umessage
+        image = i.Uimage
         
 # # #   #****************************** Validating if the message is URL or NO url ***********************
         url = validateUrl(message)[0]
         non_url = validateUrl(message)[1]
+    
 #       ********
-  
+        print(name)
+        print(message)
+        print(image)
+    
 # # #   #Appending the google name, url/url message and the image
   
-        chat_list = [nam, msg, img]
+    
         chat_list = [nam, url, non_url, img]
         new_list.append(chat_list)
+        
     print("#####################################################################################")
-    print("New List: ", display_list)
+    print("New List: ", new_list)
 
 #     # *** Lists of username and message sent from server to every client ***
     socketio.emit('push to server', {'database_list': display_list});
