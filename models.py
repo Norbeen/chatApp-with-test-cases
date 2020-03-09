@@ -2,8 +2,8 @@
 import os, flask_sqlalchemy, app
 
 # app.app = app modules app variable
-app.app.config['SQLALCHEMY_DATABASE_URI']  = os.getenv('DATABASE_URL')
-
+# app.app.config['SQLALCHEMY_DATABASE_URI']  = os.getenv('DATABASE_URL')
+app.app.config['SQLALCHEMY_DATABASE_URI']  = 'postgresql://nabin:baltimore@localhost/postgres'
 db = flask_sqlalchemy.SQLAlchemy(app.app)
 
 
@@ -13,10 +13,10 @@ class Message(db.Model):
     message = db.Column(db.String(300))
     image = db.Column(db.String(300))
     
-    def __init__(self, n, m, i):
-        self.name = n
-        self.message = m
-        self.image = i
+    def __init__(self, nam, msg, img):
+        self.name = nam
+        self.message = msg
+        self.image = img
         
     def __repr__(self):
         # return '<Message user_name: %s>' % self.user_name

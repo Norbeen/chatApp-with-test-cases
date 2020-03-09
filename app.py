@@ -7,7 +7,7 @@ from google.oauth2 import id_token
 from google.auth.transport import requests
 from ChatBot import *
 from ValidateUrl import validateUrl
-global grabbedMessage
+global received_name
 
 googleImage = ""
 googleName = ""
@@ -72,11 +72,13 @@ def on_received_Message(data):
     # Checking response for the bot.
     if grabbedMessage[:2] == "!!":
         
-        grabbedMessage= Bot(googleName, grabbedMessage)[0]
-        received_Name = Bot(googleName, grabbedMessage)[1]
+        global googleName
+        googleName = Bot(googleName, grabbedMessage)[0]
+        grabbedMessage= Bot(googleName, grabbedMessage)[1]
+        
 
-    message = models.Message(googleName, grabbedMessage, googleImage)
-    models.db.session.add(message)
+    msg = models.Message(googleName, grabbedMessage, googleImage)
+    models.db.session.add(msg)
     models.db.session.commit()
     
     print("Record inserted successfully")
@@ -88,16 +90,16 @@ def on_received_Message(data):
     
     for i in database_messages:
         
-        name = s.user_name
-        message = s.user_message
-        image = s.user_image
+        name = i.name
+        message = i.message
+        image = i.image
         
-#   #****************************** Validating if the message is URL or NO url ***********************
+# #   #****************************** Validating if the message is URL or NO url ***********************
         url = validateUrl(message)[0]
         non_url = validateUrl(message)[1]
-        # ********
+#       ********
   
-#   #Appending the google name, url/url message and the image
+# #   #Appending the google name, url/url message and the image
   
         chat_list = [name, message, image]
         chat_list = [name, url, non_url, image]
@@ -111,10 +113,6 @@ def on_received_Message(data):
 #   #****************************** This ends here ***************************************************  
   
   
-
-    
-
-
         
         
 if __name__ =='__main__':
