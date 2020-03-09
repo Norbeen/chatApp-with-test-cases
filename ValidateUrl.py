@@ -12,7 +12,3 @@ def validateUrl(string):
         nonurl_message = string
         print("Not an URL: ", nonurl_message)
     return url_message, nonurl_message
-
-print("************")
-print("Function print: ", validateUrl("nabin-nna"))
-print("************")

@@ -80,12 +80,11 @@ def on_received_Message(data):
     message = models.chatMessage(googleName,grabbedMessage,googleImage)
     models.db.session.add(message)
     models.db.session.commit()
-    
-    print("Record inserted successfully")
+  
     
     # Retrieving the data from database
     database_messages = models.chatMessage.query.all()
-    display_list = []
+    chatLog = []
     
     print("Stored Messages:", database_messages)
     
@@ -99,22 +98,18 @@ def on_received_Message(data):
         url = validateUrl(message)[0]
         non_url = validateUrl(message)[1]
     
-#       ********
-        print(name)
-        print(message)
-        print(image)
-    
+
 # # #   #Appending the google name, url/url message and the image
   
     
-        chat_list = [nam, url, non_url, img]
-        new_list.append(chat_list)
+        display_list = [nam, url, non_url, img]
+        chatLog.append(display_list)
         
     print("#####################################################################################")
     print("New List: ", new_list)
 
 #     # *** Lists of username and message sent from server to every client ***
-    socketio.emit('push to server', {'database_list': display_list});
+    socketio.emit('push to server', {'database_list': chatLog});
     
 #   #****************************** This ends here ***************************************************  
   
