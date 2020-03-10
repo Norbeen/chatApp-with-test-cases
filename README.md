@@ -14,9 +14,13 @@ c. What are at least 5 issues you encountered with your project? How did you fix
 
 3. My code was up and running but I made a mistake in renaming a function, which I later figured out looking at console in chrome and changed the method name.
 
-4. Getting the message to display in textfield, it was hard to incorporate the message with image and the history of the chat, I am still working on that.
+4. Getting the message to display in textfield, it was hard to incorporate the message with image and the history of the chat, I was finally able to implement postgresql database and conncet to heroku.
 
-5. The deployment of the app in heroku showed error, also google token receiving didn't work, I am working on that.
+5. The deployment of the app in heroku didnt display message, so I had to go over lectures to connect database to heroku.
+
+6. The process of getting google token after authenticating an user was difficult but I was finally able to implement it with going over google developer documentation, also I had to extract name, image which was possible with the documentation.
+
+7. I was using yelp api to get the restaurant near me, it was working fine when I tested it in replit, but while actually implementing in aws, it shows error response doesn't have get command, I am working on that.
 
 d. What are known problems, if any, with your project?
 
