@@ -4,9 +4,12 @@ import models
 # Importing library for parsing and validation of URIs (RFC 3986)
 from rfc3987 import parse
 from google.oauth2 import id_token
+import google.auth.transport.requests
 from google.auth.transport import requests
-from ChatBot import *
+from ChatBot import yelp_api
 from ValidateUrl import validateUrl
+request = google.auth.transport.requests.Request()
+
 
 app = flask.Flask(__name__)
 
@@ -56,7 +59,29 @@ def google_information(token):
     except ValueError:
         print("Invalid token")
         
-        
+def Bot(name, message):
+  
+    if message == "!! say something":
+        message = "Hello, welcome to the chatroom. I am Jarvis, here to help you!"
+    elif message == "!! about":
+         message = "Hi, I am Jarvis. I was designed by Nabin in Maryland for this project."
+    elif message == "!! help":
+        message = "Commands: '!! about','!! say something','!! source','!! developer'"
+    elif message == "!! source":
+        message = "To find the source code of this web-app, visit the github.com/norbeen tab at the top the page."
+    elif message == "!! developer":
+        message = "I was designed by Nabin for his project. Want to know more about him? Visit github.com/norbeen."
+    elif message == "!! Jarvis food near me" or message == "!! Jarvis food":
+          message = yelp_api()
+          name = "Jarvis"
+    else:
+        message= "Sorry! I am unable to answer this question. Type '!! help' to see the lists of commands."
+    return name, message
+
+
+# name= "nabin"
+# message= "!! Jarvis food"
+# print(Bot(name, message)) 
         
 #   #***************** Getting message after authentication as user submits the message ***********     
 
@@ -66,17 +91,20 @@ def on_received_Message(data):
     grabbedMessage  = data['user_message']
   
     # Checking response for the bot.
-    if grabbedMessage[:2].startsWith("!!"):
+    if grabbedMessage[:2]=="!!":
         
         global googleName
-        googleName = Bot(googleName, grabbedMessage )[0]
-        grabbedMessage = Bot(googleName, grabbedMessage )[1]
+        showName = Bot(googleName, grabbedMessage )[0]
+        showMessage = Bot(googleName, grabbedMessage )[1]
+        print("#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        print(showName)
+        print(showMessage)
     else:
-        googleName = Bot(googleName, grabbedMessage )[0]
-        grabbedMessage = Bot(googleName, grabbedMessage )[1]
+        showName = googleName
+        showMessage = grabbedMessage
         
 
-    message = models.chatMessage(googleName,grabbedMessage,googleImage)
+    message = models.chatMessage(showName,showMessage,googleImage)
     models.db.session.add(message)
     models.db.session.commit()
     chatLog = [] 
