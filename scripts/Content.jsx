@@ -52,11 +52,12 @@ export class Content extends React.Component {
                                     </li>
                                     { display_message.map( show_message =>
                                     <li key = {show_message[0].id} className = "message-with-image">
-                                        <img src={show_message[3]} alt = "User Image" className = "user-image" ></img>
+                                        <img src={show_message[3]} alt = "Avatar" className = "user-image" ></img>
                                         <div>
                                         <div className="container">
-                                        <p>
+                                        
                                             <h5 className="user-name"> {show_message[0]}</h5>
+                                            <p>
                                             {(show_message[1].length > 0) && <a className="msg-text" href = {show_message[1]} target="_blank">Link attached.</a>}
                                             {(show_message[2].length > 0) && <p className="msg-text"> {show_message[2]} </p>}
                                         </p>
