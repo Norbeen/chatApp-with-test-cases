@@ -2,8 +2,8 @@
 import os, flask_sqlalchemy, app
 
 # app.app = app modules app variable
-app.app.config['SQLALCHEMY_DATABASE_URI']  = os.getenv('DATABASE_URL')
-# app.app.config['SQLALCHEMY_DATABASE_URI']  = 'postgresql://nabin:@localhost/postgres'
+# app.app.config['SQLALCHEMY_DATABASE_URI']  = os.getenv('DATABASE_URL')
+app.app.config['SQLALCHEMY_DATABASE_URI']  = 'postgresql://nabin:baltimore@localhost/postgres'
 db = flask_sqlalchemy.SQLAlchemy(app.app)
 
 
@@ -20,4 +20,4 @@ class chatMessage(db.Model):
         
     def __repr__(self):
         # return '<Message user_name: %s>' % self.user_name
-        return "{'user name':'%s', 'user message':'%s', 'user message':'%s'}" % (self.name, self.message, self.image)
+        return "{'user name':'%s', 'user message':'%s', 'user message':'%s'}" % (self.Uname, self.Umessage, self.Uimage)

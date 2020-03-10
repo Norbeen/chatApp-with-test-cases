@@ -86,7 +86,7 @@ export class Button extends React.Component {
                 
                 <form className = "reply-area" onSubmit = {this.handleSubmit}>
                     <div>
-                        <textarea className="type-box" cols="100" rows="5" placeholder = " Start your chat" value = {this.state.message} onChange = {this.handleChangeMessage}></textarea>
+                        <textarea className="type-box" cols="100" rows="5" placeholder = " Start your chat" value = {this.state.user_message} onChange = {this.handleChangeMessage}></textarea>
                     </div>
                     <div>
                         <button disabled = {!isEnabled}> Send </button>

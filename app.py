@@ -8,17 +8,12 @@ from google.auth.transport import requests
 from ChatBot import *
 from ValidateUrl import validateUrl
 
-
-googleImage = ""
-googleName = ""
-
-
-
 app = flask.Flask(__name__)
 
 socketio = flask_socketio.SocketIO(app)
 
 @app.route('/')
+
 def hello():
     return flask.render_template('index.html')
     
@@ -30,8 +25,10 @@ def on_connect():
 def on_disconnect():
     print('Someone disconnected!')
     
+googleImage = ""
+googleName = ""  
 
- #***********************  verification of the user signed in with the google *****************
+#  #***********************  verification of the user signed in with the google *****************
 @socketio.on('google token')
 def google_information(token):
     
@@ -61,18 +58,20 @@ def google_information(token):
         
         
         
-  #***************** Getting message after authentication as user submits the message ***********     
+#   #***************** Getting message after authentication as user submits the message ***********     
 
 @socketio.on('first_client_message')
 def on_received_Message(data):
-    print ("Got an event for new message with data: "+ str(data))
-    # server_received_name = data['user_name']
+  
     grabbedMessage  = data['user_message']
   
     # Checking response for the bot.
-    if grabbedMessage [:2] == "!!":
+    if grabbedMessage[:2].startsWith("!!"):
         
         global googleName
+        googleName = Bot(googleName, grabbedMessage )[0]
+        grabbedMessage = Bot(googleName, grabbedMessage )[1]
+    else:
         googleName = Bot(googleName, grabbedMessage )[0]
         grabbedMessage = Bot(googleName, grabbedMessage )[1]
         
@@ -80,11 +79,11 @@ def on_received_Message(data):
     message = models.chatMessage(googleName,grabbedMessage,googleImage)
     models.db.session.add(message)
     models.db.session.commit()
-  
+    chatLog = [] 
     
-    # Retrieving the data from database
+#     # Retrieving the data from database
     database_messages = models.chatMessage.query.all()
-    chatLog = []
+    
     
     print("Stored Messages:", database_messages)
     
@@ -94,27 +93,23 @@ def on_received_Message(data):
         message = i.Umessage
         image = i.Uimage
         
-# # #   #****************************** Validating if the message is URL or NO url ***********************
+# # # #   #****************************** Validating if the message is URL or NO url ***********************
         url = validateUrl(message)[0]
         non_url = validateUrl(message)[1]
     
 
-# # #   #Appending the google name, url/url message and the image
+# # # #   #Appending the google name, url/url message and the image
   
-    
-        display_list = [nam, url, non_url, img]
-        chatLog.append(display_list)
         
-    print("#####################################################################################")
-    print("New List: ", new_list)
+        display_list = [name, url, non_url, image]
+        chatLog.append(display_list)
 
-#     # *** Lists of username and message sent from server to every client ***
+
     socketio.emit('push to server', {'database_list': chatLog});
     
-#   #****************************** This ends here ***************************************************  
+# #   #****************************** This ends here ***************************************************  
   
   
-        
         
 if __name__ =='__main__':
     socketio.run(

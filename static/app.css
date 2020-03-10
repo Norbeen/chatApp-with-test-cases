@@ -1,10 +1,10 @@
-/*:root {*/
-/*  --body-bg: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);*/
-/*  --msger-bg: #fff;*/
-/*  --border: 2px solid #ddd;*/
-/*  --left-msg-bg: #ececec;*/
-/*  --right-msg-bg: #579ffb;*/
-/*}*/
+:root {
+  --body-bg: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  --msger-bg: #fff;
+  --border: 2px solid #ddd;
+  --left-msg-bg: #ececec;
+  --right-msg-bg: #579ffb;
+}
 
 html {
   box-sizing: border-box;
@@ -154,4 +154,21 @@ body {
 body {
     background: url('/static/images/background.png') no-repeat center center/cover;
 
+}
+
+
+.use-image {
+  float: left;
+  max-width: 60px;
+  width: 100%;
+  margin-right: 20px;
+  border-radius: 50%;
+}
+
+.container {
+  border: 2px solid #dedede;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px 0;
 }
