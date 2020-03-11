@@ -182,7 +182,17 @@ body {
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
-  margin: 4px 2px;
+  margin: 6px 4px;
   cursor: pointer;
 }
 
+.active-status{
+  float:right;
+  font-weight: bold;
+   color:#A84040;
+
+}
+
+.user-count{
+  text-align:center;
+}

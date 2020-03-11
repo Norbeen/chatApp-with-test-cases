@@ -71,6 +71,12 @@ export class Button extends React.Component {
         
         return (
             <div>
+            
+             <div className ="active-status">
+                    <h5>Active Users </h5>
+                    <h4 className ="user-count">{ UserActive }</h4>
+                    </div>
+                    
                 <form className = "enter-chat" onSubmit = {this.handleSubmit}>
                     <div>
                             <GoogleLogin
@@ -82,6 +88,7 @@ export class Button extends React.Component {
                                 className = "google-login-button"
                             />
                     </div>
+                    
                 </form>
                 
                 <form className = "reply-area" onSubmit = {this.handleSubmit}>
