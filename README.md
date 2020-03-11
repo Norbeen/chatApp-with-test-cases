@@ -21,6 +21,7 @@ c. What are at least 5 issues you encountered with your project? How did you fix
 6. The process of getting google token after authenticating an user was difficult but I was finally able to implement it with going over google developer documentation, also I had to extract name, image which was possible with the documentation.
 
 7. I was using yelp api to get the restaurant near me, it was working fine when I tested it in replit, but while actually implementing in aws, it shows error response doesn't have get command, I am working on that.
+Actually I had called responses library from google auth aswell so it was conflicting, when i deleted the conflicting line of code, it worked.
 
 d. What are known problems, if any, with your project?
 
