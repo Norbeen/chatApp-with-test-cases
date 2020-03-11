@@ -1,8 +1,7 @@
 import json,random
-from requests import *
-from app import *
-from google.auth.transport import requests
-import google.auth.transport.requests
+import requests 
+
+
 
 def yelp_api():
     
@@ -13,7 +12,7 @@ def yelp_api():
 
     params = {'term':'food','location':'baltimore'}
     
-    req = request.get(url, params=params, headers=headers)
+    req = requests.get(url, params=params, headers=headers)
     print(req)
     parsed = json.loads(req.text)
 
@@ -33,7 +32,7 @@ def yelp_api():
     
     resName = ("".join(restaurant_name[randomNum-1]))
     resUrl = ("".join(restaurant_url[randomNum-1]))
-    return resName, resUrl
+    return resName + " " + resUrl
     
 def Bot(name, message):
   

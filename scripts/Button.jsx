@@ -89,7 +89,7 @@ export class Button extends React.Component {
                         <textarea className="type-box" cols="100" rows="5" placeholder = " Start your chat" value = {this.state.user_message} onChange = {this.handleChangeMessage}></textarea>
                     </div>
                     <div>
-                        <button disabled = {!isEnabled}> Send </button>
+                        <button className ="send-button" disabled = {!isEnabled}> Send </button>
                     </div>
                 </form>
             </div>
